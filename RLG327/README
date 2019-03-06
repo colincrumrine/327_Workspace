@@ -1,7 +1,10 @@
 ------------------------
 Design Decisions & Issues
 -------------------------
-These features were probably the easiest to implement as my codebase was luckily set up to implement them with little to no refactoring. The only feature that caught me off guard is the persistance of PC inventory, equipment, and HP across dungeons. I also ran into some bugs with negative values for speed, so i made the default lowest speed value to be 1. I also fixed a bug that caused objects to not spawn after being dropped after taking a staircase.
+These features were probably the easiest to implement as my codebase was luckily set up to implement
+them with little to no refactoring. The only feature that caught me off guard is the persistance of PC inventory,
+equipment, and HP across dungeons. I also ran into some bugs with negative values for speed, so i made the default
+lowest speed value to be 1. I also fixed a bug that caused objects to not spawn after being dropped after taking a staircase.
 
 *I have PC hp set to 10,000 right now. To change, go to line 133 of game.cpp*
 
