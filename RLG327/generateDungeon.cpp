@@ -6,23 +6,10 @@
 #include <endian.h>
 #include "monsterMap.h"
 #include "switches.h"
+#include "generateDungeon.h"
+#include "game.h"
 
-/* Main method that initializes borders of room and fills the rest with 0's. It then calls addRooms_Corridors() and addSpaces() to finalize dungeon format. */
-void generateDungeon(char *argv[]);
-/* Uses the rand() function which is seeded by the srand(tinme(0)) argument to first generate rooms throughout the dungeon and then generate corridors connecting the rooms.*/
-void addRooms_Corridors(char dungeon[21][80]);
-/* Parses the given dungeon and add spaces where the value at the array position is '0'. */
-void addSpaces(char dungeon[21][80]);
-/* Uses argument values given in argv[i] to determine whether to read or write the dungeon to the disk. */
-
-int main(int argc, char *argv[])
-{
-	srand(time(0));
-	generateDungeon(argv);
-	return 0;
-}
-
-void generateDungeon(char *argv[])
+void generateDungeon(char *argv[], int initializeGame, int monsterCount, object* carry[10], object* equipment[12], int pcHP)
 {
 	char dungeon[21][80];
 	int x,y;
@@ -214,7 +201,13 @@ void generateDungeon(char *argv[])
 		}
 	}
 	
-	switches(argv,dungeon,hardness,roomStats,pcLocation);
+	if(initializeGame == 0 && monsterCount == 0)
+	{
+		switches(argv,dungeon,hardness,roomStats,pcLocation);
+	}else{
+		simulate(monsterCount,hardness,roomStats,pcLocation,carry,equipment,pcHP);
+	}
+
 	
 }
 

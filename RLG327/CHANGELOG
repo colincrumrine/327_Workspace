@@ -1,0 +1,184 @@
+# CHANGELOG #
+
+All changes made to this project will be documented in this file.
+
+Changes include fiding/solving bugs, adding/removing features, or simply
+adding general documentation (README or comments).
+
+-------
+*(8/29)
+-------
+
+Began process of generating random dungeons. Added one top level function (generatDungeon()) 
+and three utility functions (addRooms(), addCorridors(), addSpaces()).
+
+** generateDungeon()
+
+Initializes dungeon by first creating a border for the terminal, then fills the rest of the space
+with 0's. After doing this the functions call addRooms() to randomly add rooms throughout the dungeon.
+It then call addCorridors() which interconnects the rooms. Finally, the function calls addSpaces() which 
+checks every space in the area that has a value of 0 and changes it to a space (" ").
+
+** addRooms()
+
+Uses the rand() function to generate a random starting point in the dungeon (i and j), then uses rand() again
+to select the x,y size of the room to be added. Once these two numbers have been chosen, the function parses the
+dungeon to check to see if the current section of values already contains a room. If it doesn't contain a room, place a room,
+if it does contain a room, keep searching.
+
+** addCorridors()
+
+Added prototype for function and considered ways of implementing.
+
+** addSpaces()
+
+Function parses dugeon now complete with a border, rooms, and corridors. If a space in the array still contains a 0,
+the function replaces the value with a " " value instead.
+
+After doing this, the dungeon will be printed to the terminal.
+
+-------
+*(8/30)
+-------
+
+Touched up room generation to make the location of rooms more spread out. Also increased the range of the size that the rooms can be.
+
+-------
+*(8/31)
+-------
+
+Started and finished linking rooms together using corridors. Joined the addRooms() function and the addCorridors() function 
+together into addRooms_Corridors() to simplify the generation process. Plan on making corridor layout more complex.
+
+-------
+*(9/8)
+-------
+
+Created load_save() function which takes in elements of randomly generated dungeon
+and either saves the relevant data the disk if the switch has a value of "--save" or 
+reads the data from the disk and prints the value if the value is "--load". 
+
+Changed some data type values for easier storage.
+
+-------
+*(9/9)
+-------
+
+Fixed a bug that caused the wrong output if the switch values were "--load --save".
+
+-------
+*(9/10)
+-------
+
+Worked out a bug that was caused by an off by one error whenever the room count
+was written/read from a newly generated dungeon.
+
+-------
+*(9/11)
+-------
+
+Added correct file pathing and big endian conversions.
+
+-------
+*(9/12)
+-------
+
+Fixed a bug with ./mainDungeon --load --save that caused the loaded file to be overwritten with the save switch.
+
+-------
+*(9/17)
+-------
+
+Started and implemented both the tunneling and non-tunneling monster maps. Ran into a segmentation fault realizing it was a "!=" instead of a "==" error when adding the node to the heap haha. Also added in functionality to "save/load" the maps.
+
+-------
+*(9/18)
+-------
+
+Finalized my tunneling algorithm with some checks for hardness values that can vary the tunneling process.
+
+-------
+*(9/25)
+-------
+
+Rewrote some functions and made some new files to better fit additional switches. The switches file now can take in up to 4 switches, including: --save, --load, --nummon, and monsterCount. The functions load(), save_load, and save(), then get called accordingly with the function simulate() which is what will be "playing" the game.
+
+-------
+*(9/30)
+-------
+
+Created gameSimulation.c and gameSimulation.h files for Assignment 1.04. Got random pc movement, erratic monster behavior, game exiting upon monster and pc collision, and turn order using the heap working.
+
+-------
+*(10/1)
+-------
+
+Finished implementing monster movement based on three traits and added monster -> monster kill and pc -> monster kill.
+
+-------
+*(10/2)
+-------
+
+Reformatted monster initialization and created array of pointers to character structs. Still need to implement monster kiling monster.
+
+Finished up fixing remaining bugs and added a maximum monster count of 50.
+
+-------
+*(10/8)
+-------
+
+Implemented all but the ability to correctly view and scroll through the monsters list.
+
+-------
+*(10/9)
+-------
+
+Finished adding monster list and decided on a viewing window to scroll through lists of monsters that are longer than the terminal window. 
+
+-------
+*(10/14)
+-------
+
+Went back and added some nice QOL changes to the game.
+
+-------
+*(10/21)
+-------
+
+Implemented the teleporter feauture and ported code to C++, which involved changing file extensions, changing structs to classes, and changing some make file stuff.
+
+-------
+*(10/28)
+-------
+
+Added monsterParser() function and modified main to only run monsterParser(). Implemented description, name and symbol parsing for the monster description file.
+
+-------
+*(10/29)
+-------
+
+Finished implementing remaining fields for monster parser and implemented a system to check for invalid file format.
+
+-------
+*(11/3)
+-------
+
+Started and finished implementing monster factory. Used same file for parser to create factory function.
+
+-------
+*(11/5)
+-------
+
+Wrote an object parser that I used from a template of my monsterParser file. Then I used the new itemParser file to implement the object generation factory. Still need to tweak some things like spawn rates.
+
+-------
+*(11/12)
+-------
+
+Implemented all but the ability to wear/take off objects and battling between npcs and the pc.
+
+-------
+*(11/13)
+-------
+
+Implemented the 'w' and 't' keys and made monster vs. pc interactions cost hitpoints. Also found out inventory and equipment have to persist through new dungeons, so I did that as well.

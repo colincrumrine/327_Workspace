@@ -1,19 +1,30 @@
 #include <stdio.h>
 #include <limits.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <limits.h>
+#include <string.h>
+#include <ncurses.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include<time.h>
+#include<string.h>
+#include<string>
 #include "monsterMap.h"
 #include "heap.h"
 
 /* The node_path_t is used to factor in weights and postions of nodes on the graph to decided where the monster should go. */
-typedef struct node_path {
+class node_path {
+  public:
   heap_node_t *hn;
   uint8_t pos[2];
   int32_t cost;
-} node_path_t;
+};
 
 /* Compare method used when initializing the heap. */
 int node_cmp(const void *key, const void *with) {
-  return ((node_path_t *) key)->cost - ((node_path_t *) with)->cost;
+  return ((node_path *) key)->cost - ((node_path *) with)->cost;
 }
 
 /* Tunneling map used by monsters that can tunnel through rock. Hardness of rock is used to determine distances on map. */
@@ -21,7 +32,7 @@ int tunnelingMap(int ioCostArr[21][80], uint8_t hardness[21][80], uint8_t pcLoca
 {
 	int dim_y = 0;
 		int dim_x = 1;
-		static node_path_t path[21][80], *p;
+		node_path path[21][80], *p;
 		int x,y;
 		heap_t h;
 		
@@ -60,7 +71,7 @@ int tunnelingMap(int ioCostArr[21][80], uint8_t hardness[21][80], uint8_t pcLoca
 				}
 		}
 		
-		while ((p = heap_remove_min(&h)))
+		while ((p = (node_path *) heap_remove_min(&h)))
 		{
 			p->hn = NULL;
 			
@@ -141,7 +152,7 @@ int nonTunnelingMap(int ioCostArr[21][80], uint8_t hardness[21][80], uint8_t pcL
 {
 		int dim_y = 0;
 		int dim_x = 1;
-		static node_path_t path[21][80], *p;
+		node_path path[21][80], *p;
 		int x,y;
 		heap_t h;
 		
@@ -180,7 +191,7 @@ int nonTunnelingMap(int ioCostArr[21][80], uint8_t hardness[21][80], uint8_t pcL
 				}
 		}
 		
-		while ((p = heap_remove_min(&h)))
+		while ((p = (node_path *) heap_remove_min(&h)))
 		{
 			p->hn = NULL;
 			
